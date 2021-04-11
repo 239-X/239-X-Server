@@ -1,0 +1,85 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /minimal
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 300
+    accept_count: 200
+
+spring:
+  aop:
+    proxy-target-class: true
+    #配置mybatis
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://172.21.0.9:3306/minimal?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round&serverTimezone=GMT%2B8
+      username: root
+      password: 19920316
+      driver-class-name: com.mysql.jdbc.Driver
+      max-wait: 15000
+      max-active: 50
+      initial-size: 1
+      min-idle: 1
+      # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+      aop-patterns: com.minimal.service.*
+      filters: stat,wall
+      filter:
+        stat.log-slow-sql: true
+        stat.slow-sql-millis: 2000
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+  #指定mybatis映射文件的地址
+  redis:
+    database: 0
+    host: 172.21.0.9
+    port: 6379
+    password: qweasd123
+    timeout: 1000
+    pool:
+      max-active: 200
+      max-wait: -1
+      max-idle: 10
+      min-idle: 0
+  data:
+    mongodb:
+      host: 172.21.0.9
+      port: 27017
+      database: minimal
+      username: minimalUser
+      password: qweasd123
+
+#pagehelper分页插件配置
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.minimal.entity.model
+  mapper-locations: classpath:mapper/*.xml
+
+mapper:
+    mappers:
+        - tk.mybatis.mapper.common.Mapper
+    not-empty: false
+    identity: MYSQL
+
+wechat:
+  url: https://api.weixin.qq.com
+
+logging:
+  config: classpath:log4j2-pro.yml
+
+file:
+  uploadFolder: /images/wechat
+  imgPath: /wechat/
+
+limiterQPS: 1000

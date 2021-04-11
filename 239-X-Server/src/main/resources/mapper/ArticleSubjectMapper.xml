@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minimal.mybatis.mapper.ArticleSubjectMapper" >
+  <resultMap id="BaseResultMap" type="com.minimal.entity.model.ArticleSubject" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_free" property="isFree" jdbcType="INTEGER" />
+    <result column="coin" property="coin" jdbcType="INTEGER" />
+    <result column="back_img" property="backImg" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="articleResultMap" type="com.minimal.common.api.dto.ArticleDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sketch" property="sketch" jdbcType="VARCHAR" />
+    <result column="back_img" property="backImg" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="read_num" property="readNum" jdbcType="INTEGER" />
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER" />
+    <result column="author_name" property="authorName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectArticleSubjectByArticleSubjecId" resultMap="articleResultMap" parameterType="java.lang.String">
+    select art.id,art.sketch,art.back_img,art.title,art.category_id,art.read_num,
+    (select count(*) from article_comment where article_id=art.id) as comment_num,
+    (select count(*) from article_like where article_id=art.id) as like_num,
+    art.author_name,art.create_time,art.update_time
+    from article art
+    left join article_subject_relation asub_rela on asub_rela.article_id = art.id
+    where art.is_delete=0 and asub_rela.article_subject_id = #{articleSubjecId,jdbcType=VARCHAR}
+     ORDER BY art.sort ASC , art.update_time DESC
+  </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minimal.mybatis.mapper.ArticleSubjectUserMapper" >
+  <resultMap id="BaseResultMap" type="com.minimal.entity.model.ArticleSubjectUser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="coin" property="coin" jdbcType="INTEGER" />
+    <result column="is_free" property="isFree" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="articleSubjectResultMap" type="com.minimal.common.api.dto.ArticleSubjectDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="coin" property="coin" jdbcType="INTEGER" />
+    <result column="is_free" property="isFree" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="back_img" property="backImg" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectSubjectByUserId" resultMap="articleSubjectResultMap" parameterType="java.lang.String">
+    select art_sub.*
+    from article_subject_user art_sub_usr
+    left join article_subject art_sub on art_sub.id = art_sub_usr.subject_id and art_sub.is_delete=0
+    where art_sub_usr.is_delete=0
+    <if test="userId != null and userId != ''" >
+      and art_sub_usr.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minimal.mybatis.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.minimal.entity.model.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="head_portrait" property="headPortrait" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="mailbox" property="mailbox" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="coin" property="coin" jdbcType="DECIMAL" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="userDtoResultMap" type="com.minimal.common.api.dto.UserDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="head_portrait" property="headPortrait" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="coin" property="coin" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from user
+    where is_delete=0
+    <if test="openId != null and openId != ''" >
+      and openid = #{openId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectRelationshipUserByActUserId" resultMap="userDtoResultMap" parameterType="java.lang.String">
+    select usr.id,usr.id,usr.head_portrait,usr.nickname,usr.name,usr.openid,usr_rel.create_time,usr_rel.coin
+    from user_relationship usr_rel
+    left join user usr on usr.id = usr_rel.be_user_id and usr.is_delete=0
+    where usr_rel.is_delete=0
+    <if test="userId != null and userId != ''" >
+      and usr_rel.act_user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+</mapper>

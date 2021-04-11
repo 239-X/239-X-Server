@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minimal.mybatis.mapper.ArticleCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.minimal.entity.model.ArticleCollect" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="articleCollectResultMap" type="com.minimal.common.api.dto.ArticleCollectDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sketch" property="sketch" jdbcType="VARCHAR" />
+    <result column="back_img" property="backImg" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="read_num" property="readNum" jdbcType="INTEGER" />
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER" />
+    <result column="author_name" property="authorName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectCollectByUserId" resultMap="articleCollectResultMap" parameterType="java.lang.String">
+    select art.id,art.sketch,art.back_img,art.title,art.category_id,art.read_num,art.collect_num,
+    art.author_name,art_coll.create_time,art.update_time,
+    (select count(*) from article_like where article_id=art.id) as like_num,
+    (select count(*) from article_comment where article_id=art.id) as comment_num
+    from article_collect art_coll
+    left join article art on art_coll.article_id = art.id and art_coll.is_delete=0
+    where art.is_delete=0
+    <if test="userId != null and userId != ''" >
+      and art_coll.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

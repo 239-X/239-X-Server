@@ -1,0 +1,4 @@
+spring:
+  #引进其他配置文件
+  profiles:
+    active: dev
