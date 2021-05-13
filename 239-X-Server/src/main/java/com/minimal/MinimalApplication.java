@@ -19,7 +19,7 @@ import java.util.Properties;
 
 @SpringBootApplication
 @EnableFeignClients
-@MapperScan(basePackages = "com.minimal.mybatis.mapper")
+@MapperScan(basePackages = "com.minimal.mapper")
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class MinimalApplication{
 	public static void main(String[] args) {

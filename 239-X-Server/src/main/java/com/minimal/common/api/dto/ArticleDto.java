@@ -1,12 +1,8 @@
 package com.minimal.common.api.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
- *
  * @author linzhiqiang
  * @date 2019/3/27
  */

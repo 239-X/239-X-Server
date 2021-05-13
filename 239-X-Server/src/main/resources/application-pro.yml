@@ -53,6 +53,10 @@ spring:
       database: minimal
       username: minimalUser
       password: qweasd123
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
 
 #pagehelper分页插件配置
 pagehelper:

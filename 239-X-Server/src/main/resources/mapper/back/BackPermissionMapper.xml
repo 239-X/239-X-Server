@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minimal.mapper.back.BackPermissionMapper">
+    <resultMap id="BaseResultMap" type="com.minimal.entity.model.Permission">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR"/>
+        <result column="layer" property="layer" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="selectByOperationUserId" resultType="com.minimal.entity.model.Permission">
+        select DISTINCT t1.*
+        from permission t1
+        left join relation_permission_role t2 on t1.id = t2.permission_id
+        left join relation_operation_user_role t3 on t2.role_id = t2.role_id
+        where 1=1
+        and t3.operation_user_id = #{operationUserId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByRuleId" resultType="com.minimal.entity.model.Permission">
+        select DISTINCT t1.*
+        from permission t1
+        left join relation_permission_role t2 on t1.id = t2.permission_id
+        where 1=1
+        and t2.ruleId = #{ruleId,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -1,7 +1,6 @@
 package com.minimal.controller.test;
-import com.minimal.common.sdk.Page;
 import com.minimal.entity.model.Config;
-import com.minimal.service.impl.ConfigServiceImpl;
+import com.minimal.service.wechat.impl.ConfigServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

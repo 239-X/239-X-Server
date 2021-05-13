@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.minimal.mybatis.mapper.ArticleSubjectRelationMapper" >
-  <resultMap id="BaseResultMap" type="com.minimal.entity.model.ArticleSubjectRelation" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
-    <result column="article_subject_id" property="articleSubjectId" jdbcType="VARCHAR" />
-  </resultMap>
-</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minimal.mapper.back.BackMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.minimal.entity.model.Menu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="layer" property="layer" jdbcType="INTEGER" />
+    <result column="is_launch" property="isLaunch" jdbcType="BIT" />
+    <result column="skip_type" property="skipType" jdbcType="INTEGER" />
+    <result column="skip_location" property="skipLocation" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
