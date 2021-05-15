@@ -6,7 +6,9 @@ import com.minimal.entity.model.InfoBarDetail;
 import com.minimal.mapper.back.BackInfoBarDetailMapper;
 import com.minimal.mapper.back.BackInfoBarMapper;
 import com.minimal.service.front.FrontMessageService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  * @author linzhiqiang
  * @date 2021-05-05
  */
+@Service
+@Log4j2
 public class FrontMessageServiceImpl implements FrontMessageService {
     @Autowired
     private BackInfoBarMapper backInfoBarMapper;
