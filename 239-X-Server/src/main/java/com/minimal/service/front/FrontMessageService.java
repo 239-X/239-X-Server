@@ -1,8 +1,8 @@
 package com.minimal.service.front;
 
-import com.github.pagehelper.PageInfo;
 import com.minimal.common.api.dto.InfoBarDto;
-import com.minimal.entity.model.InfoBar;
+
+import java.util.List;
 
 /**
  * 后端分类接口
@@ -14,8 +14,7 @@ public interface FrontMessageService {
     /**
      * 获取对象详情
      *
-     * @param id
      * @return
      */
-    void detail(long id);
+    List<InfoBarDto> detail();
 }
