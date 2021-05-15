@@ -68,7 +68,7 @@ public class BackManageServiceImpl implements BackManageService {
     public int delete(long id) {
         int num = backOperationUserMapper.deleteByPrimaryKey(id);
         tk.mybatis.mapper.entity.Example example = new tk.mybatis.mapper.entity.Example(RelationOperationUserRole.class);
-        example.createCriteria().andEqualTo("operationUserId", id);
+        example.createCriteria().andEqualTo("operation_user_id", id);
         backRelationOperationUserRoleMapper.deleteByExample(example);
         return num;
     }
