@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 前端文章评论模块
  *
@@ -20,8 +22,11 @@ public class FrontArticleReviewServiceImpl implements FrontArticleReviewService 
     private FrontArticleReviewMapper frontArticleReviewMapper;
 
     @Override
-    public void detail(String id) {
-
+    public List<ArticleComment> detail(String id) {
+        tk.mybatis.mapper.entity.Example articleCommentExample = new tk.mybatis.mapper.entity.Example(ArticleComment.class);
+        articleCommentExample.createCriteria().andEqualTo("article_id", id);
+        List<ArticleComment> articleCommentList = frontArticleReviewMapper.selectByExample(articleCommentExample);
+        return articleCommentList;
     }
 
     @Override

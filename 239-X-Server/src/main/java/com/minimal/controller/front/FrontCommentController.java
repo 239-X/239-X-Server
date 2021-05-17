@@ -27,7 +27,7 @@ public class FrontCommentController {
     public String articleReview(String id) {
         String result = null;
         try {
-            frontArticleReviewService.detail(id);
+            return JsonUtils.toJson(frontArticleReviewService.detail(id));
         } catch (Exception e) {
             log.error("获取文章评论失败,article={}", e.getMessage());
         }

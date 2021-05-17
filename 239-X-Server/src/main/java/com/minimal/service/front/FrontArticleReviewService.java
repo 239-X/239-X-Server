@@ -1,8 +1,8 @@
 package com.minimal.service.front;
 
-import com.github.pagehelper.PageInfo;
-import com.minimal.common.api.dto.back.BackArticleCommentDto;
 import com.minimal.entity.model.ArticleComment;
+
+import java.util.List;
 
 /**
  * 后端分类接口
@@ -17,10 +17,11 @@ public interface FrontArticleReviewService {
      * @param id
      * @return
      */
-    void detail(String id);
+    List<ArticleComment> detail(String id);
 
     /**
      * 保持文章评论
+     *
      * @param articleComment
      * @return
      */
