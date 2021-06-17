@@ -10,6 +10,7 @@ import com.minimal.entity.model.ArticleComment;
 import com.minimal.mapper.back.BackArticleCommentMapper;
 import com.minimal.service.back.BackArticleCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 后端分类接口
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author linzhiqiang
  * @date 2021-05-05
  */
+@Service
 public class BackArticleCommentServiceImpl implements BackArticleCommentService {
     @Autowired
     private BackArticleCommentMapper backArticleCommentMapper;
